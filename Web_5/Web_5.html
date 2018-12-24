@@ -1,0 +1,93 @@
+<html>
+<head>  <meta charset="utf-8"></head>
+<body>
+   <script>
+	const m = [
+			{
+				text: 'Животные',
+				childs: [
+					{
+						text: 'Птицы',
+						childs: [
+							'Совообразные',
+							'Попугаеобразные',
+							'Пингвиновые',
+							'Голубиные',
+							'Дятловые',
+							'Воробьинообразные',
+							'Гуси и лебеди'
+						]
+					},
+					{
+						text: 'Млекопитающие',
+						childs: [
+							{
+								text: 'Живородящие',
+								childs: [
+									'Муравьед',
+									'Коала'
+								]
+							},
+							{
+								text: 'Яйцекладущие',
+								childs: [
+									'Утконос',
+									'Ехидна'
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				text: 'Растения',
+				childs: [
+					{
+						text: 'Низшие',
+						childs: [
+							'Водоросли',
+							'Лишайники'
+						]
+					},
+					{
+						text: 'Высшие',
+						childs: [
+							'Мхи',
+							'Плауны',
+							'Папоротники',
+							'Голосеменныеолосеменные',
+							'Цветковые'
+						]
+					}
+				]
+			}
+		]
+		function createList(childs) {
+			
+			let ul = document.createElement('ul')
+			for (let child of childs) {
+				let li = document.createElement('li')
+				if (child.text !== undefined) 
+					li.append(child.text)
+				if (typeof child !== 'object')
+					li.append(child)
+				else if (child.childs !== undefined) 
+					li.append(createList(child.childs))
+				ul.append(li)
+			}
+			return ul
+		}
+		document.body.append(createList(m))
+		// 5.2
+		function show(element) {
+			if (element.childNodes === undefined) return
+			for (let node of element.childNodes) {
+				console.log(node.nodeName, node.nodeType, node.nodeValue)
+				show(node)
+			}
+		}
+		show(document)
+	</script>
+  </script>
+</body>
+</html>
