@@ -1,0 +1,169 @@
+<!DOCTYPE HTML> 
+<html> 
+	<head> 
+		<meta charset="utf-8"> 
+		<title>WEB_5_12</title> 
+	</head> 
+	<body> 
+		<script> 
+		const m = [
+			{
+				text: 'Животные',
+				children: [
+					{
+						text: 'Птицы',
+						children: [
+							{
+								text:'Совообразные',
+								children:[]
+							},
+							{
+								text:'Попугаеобразные',
+								children:[]
+							},
+							{
+								text:'Пингвиновые',
+								children:[]
+							},
+							{
+								text:'Голубиные',
+								children:[]
+							},
+							{
+								text:'Дятловые',
+								children:[]
+							},
+							{
+								text:'Воробьинообразные',
+								children:[]
+							},
+							{
+								text:'Гуси и лебеди',
+								children:[]
+							}
+						]
+					},
+					{
+						text: 'Млекопитающие',
+						children: [
+							{
+								text: 'Живородящие',
+								children: [
+									{
+										text:'Муравьед',
+										children:[]
+									},
+									{
+										text:'Коала',
+										children:[]
+									}
+								]
+							},
+							{
+								text: 'Яйцекладущие',
+								children: [
+									{
+										text:'Утконос',
+										children:[]
+									},
+									{
+										text:'Ехидна',
+										children:[]
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				text: 'Растения',
+				children: [
+					{
+						text: 'Низшие',
+						children: [
+							{
+								text:'Водоросли',
+								children:[]
+							},
+							{
+								text:'Лишайники',
+								children:[]
+							}
+						]
+					},
+					{
+						text: 'Высшие',
+						children: [
+							{
+								text:'Мхи',
+								children:[]
+							},
+							{
+								text:'Плауны',
+								children:[]
+							},
+							{
+								text:'Папоротники',
+								children:[]
+							},
+							{
+								text:'Голосеменныеолосеменные',
+								children:[]
+							},
+							{
+								text:'Цветковые',
+								children:[]
+							}
+						]
+					}
+				]
+			}
+		]
+		/* 5.1 */ 
+		function CreateList(object) 
+		{ 
+			var element = document.createElement("li"); 
+			element.innerText = object.text 
+
+			if (object.children.length != 0) 
+			{ 
+				var element_ul = document.createElement("ul"); 
+
+				for (var i = 0; i < object.children.length; i++) 
+				element_ul.append(CreateList(object.children[i])) 
+
+				element.append(element_ul) 
+			} 
+
+			return element; 
+		} 
+
+		var element = document.createElement("ul"); 
+
+		for (var i = 0; i < m.length; i++) 
+		element.append(CreateList(m[i])) 
+
+		document.body.insertBefore(element, document.getElementsByTagName("script")[0]);
+		/*добавляет элемент в список дочерних элементов родителя перед указанным элементом*/ 
+	
+
+		/* 5.2 */ 
+		function GetInformation(object) /*информация*/ 
+		{ 
+		var nodeInformation = {node: object, properties: []} 
+
+		for(var key in object) 
+		nodeInformation.properties.push(key + ": " + object[key]) 
+
+		console.log(nodeInformation) 
+
+		for (var i = 0; i < object.children.length; i++) 
+		GetInformation(object.children[i]) 
+		} 
+
+		GetInformation(document.documentElement) 
+
+		</script> 
+	</body> 
+</html>

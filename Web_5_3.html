@@ -1,0 +1,167 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>LIST JQuery</title>
+	<script type="text/javascript"src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<style type="text/css">
+		li{
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		/// 5.1
+		const m = [
+			{
+				text: 'Животные',
+				children: [
+					{
+						text: 'Птицы',
+						children: [
+							{
+								text:'Совообразные',
+								children:[]
+							},
+							{
+								text:'Попугаеобразные',
+								children:[]
+							},
+							{
+								text:'Пингвиновые',
+								children:[]
+							},
+							{
+								text:'Голубиные',
+								children:[]
+							},
+							{
+								text:'Дятловые',
+								children:[]
+							},
+							{
+								text:'Воробьинообразные',
+								children:[]
+							},
+							{
+								text:'Гуси и лебеди',
+								children:[]
+							}
+						]
+					},
+					{
+						text: 'Млекопитающие',
+						children: [
+							{
+								text: 'Живородящие',
+								children: [
+									{
+										text:'Муравьед',
+										children:[]
+									},
+									{
+										text:'Коала',
+										children:[]
+									}
+								]
+							},
+							{
+								text: 'Яйцекладущие',
+								children: [
+									{
+										text:'Утконос',
+										children:[]
+									},
+									{
+										text:'Ехидна',
+										children:[]
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				text: 'Растения',
+				children: [
+					{
+						text: 'Низшие',
+						children: [
+							{
+								text:'Водоросли',
+								children:[]
+							},
+							{
+								text:'Лишайники',
+								children:[]
+							}
+						]
+					},
+					{
+						text: 'Высшие',
+						children: [
+							{
+								text:'Мхи',
+								children:[]
+							},
+							{
+								text:'Плауны',
+								children:[]
+							},
+							{
+								text:'Папоротники',
+								children:[]
+							},
+							{
+								text:'Голосеменныеолосеменные',
+								children:[]
+							},
+							{
+								text:'Цветковые',
+								children:[]
+							}
+						]
+					}
+				]
+			}
+		]
+		function CreateList(object) 
+			{ 
+				var myElement = $("<li>"); 
+
+				myElement.text(object.text) 
+
+				if (object.children.length != 0) 
+				{ 
+					var element_ul = $("<ul>"); 
+
+					for (var i = 0; i < object.children.length; i++) 
+					element_ul.append(CreateList(object.children[i])) 
+
+					myElement.append(element_ul) 
+				} 
+
+				return myElement; 
+			} 
+
+			var myElement = $("<ul>"); 
+
+			for (var i = 0; i < m.length; i++) 
+			myElement.append(CreateList(m[i])) 
+
+			$('body').append(myElement); 
+
+			$("li").click(function(e){ 
+			e.stopPropagation(); 
+			$(this).children("ul").slideToggle('slow'); 
+			}); 
+
+
+			$( "li" ).each(function() { 
+			var t = $(this).clone().children("ul").remove().end(); 
+			console.log( "Text: " + t.text() + "\r\nCount li: " + $(this).find("li").length ); 
+			}); 
+			</script> 
+			</body> 
+			</html>
